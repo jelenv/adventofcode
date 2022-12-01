@@ -5,3 +5,5 @@ obj
 *.user
 
 Properties/launchSettings.json
+
+adventofcode.sln
