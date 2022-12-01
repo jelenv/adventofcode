@@ -45,12 +45,9 @@ class Day01 : ISolver {
             if (trLine.Length > 0) {
                 currentElf += int.Parse(trLine);
             } else {
-                foreach (int topElf in topElves) {
-                    if (currentElf > topElf) {
-                        topElves[0] = currentElf;
-                        Array.Sort(topElves);
-                        break;
-                    }
+                if (currentElf > topElves[0]) {
+                    topElves[0] = currentElf;
+                    Array.Sort(topElves);
                 }
                 currentElf = 0;
             }
