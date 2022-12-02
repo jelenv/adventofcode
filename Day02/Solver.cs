@@ -15,7 +15,7 @@ class Day02 : ISolver {
         // score (selected): X = 1, Y = 2, Z = 3
         // score (outcome): 6 for win, 3 for draw, 0 for loss
 
-        string[] lines = File.ReadAllLines("Day02/test.txt");
+        string[] lines = File.ReadAllLines("Day02/input.txt");
         List<char> player1 = new();
         List<char> player2 = new();
         foreach (string line in lines) {
@@ -62,7 +62,6 @@ class Day02 : ISolver {
     }
 
     private void Part2(char[] player1, char[] player2) {
-        // TODO: fix second part, it's not working correctly
         int totalScore = 0;
         // X = lose, Y = draw, Z = win
         var outcomeScoreMap = new Dictionary<char, int> {
@@ -79,11 +78,12 @@ class Day02 : ISolver {
                 player2Score = player1Score;
             } else if (player2[i] == 'Z') {
                 var score = (player1Score + 1) % 3;
-                player2Score = score == 0 ? 1 : score;
+                player2Score = score == 0 ? 3 : score;
             } else {
                 var score = (player1Score + 2) % 3;
                 player2Score = score == 0 ? 3 : score;
             }
+
             totalScore += player2Score;
             totalScore += outcomeScoreMap[player2[i]];
         }
