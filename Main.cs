@@ -14,6 +14,7 @@ static class SolverFactory {
             "day05" => new Day05(),
             "day06" => new Day06(),
             "day07" => new Day07(),
+            "day08" => new Day08(),
             _ => throw new Exception($"Unknown day: {day}")
         };
     }
@@ -22,7 +23,7 @@ static class SolverFactory {
 static class Program {
 
     static void Main(string[] args) {
-        var solver = SolverFactory.Create("day07");
+        var solver = SolverFactory.Create("day08");
         solver.Run();
     }
 
