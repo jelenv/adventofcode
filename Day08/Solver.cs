@@ -11,8 +11,7 @@ class Day08 : ISolver {
         Console.WriteLine("Day08 solver");
 
         string[] input = File.ReadAllLines("Day08/input.txt");
-
-        // Part1(input);
+        Part1(input);
         Part2(input);
     }
 
@@ -47,9 +46,11 @@ class Day08 : ISolver {
 
     // Parse input into a forest of trees
     private void ParseIntoForest(string[] input) {
+        forest.Clear();
         for (int row = 0; row < input.Length; row++) {
             for (int col = 0; col < input[row].Length; col++) {
-                Tree currentTree = new(input[row][col], col, row, false);
+                int height = int.Parse(input[row][col].ToString());
+                Tree currentTree = new(height, col, row, false);
                 if (row == 0 || row == input.Length - 1) {
                     currentTree.Visible = true;
                 }
@@ -68,17 +69,14 @@ class Day08 : ISolver {
                 tree.Visible = true;
                 continue;
             }
-
             if (IsVisibleLeft(tree)) {
                 tree.Visible = true;
                 continue;
             }
-
             if (IsVisibleRight(tree)) {
                 tree.Visible = true;
                 continue;
             }
-
             if (IsVisibleDown(tree)) {
                 tree.Visible = true;
             }
@@ -88,21 +86,11 @@ class Day08 : ISolver {
     // Iterate over all trees and calculate their scenic score
     private void CalcScenicScores() {
         foreach (var tree in forest) {
-            var takeWhileCondition = tree.Visible ? (Func<Tree, bool>)(x => x.Height < tree.Height) : _ => true;
-
-            int treesUp = IsVisibleUp(tree) ? TreeCountUp(tree) : SmallerTreesUp(tree);
-            int treesLeft = IsVisibleLeft(tree) ? TreeCountLeft(tree) : SmallerTreesLeft(tree);
-            int treesRight = IsVisibleRight(tree) ? TreeCountRight(tree) : SmallerTreesRight(tree);
-            int treesDown = IsVisibleDown(tree) ? TreeCountDown(tree) : SmallerTreesDown(tree);
+            int treesUp = VisibleTreesUp(tree);
+            int treesLeft = VisibleTreesLeft(tree);
+            int treesRight = VisibleTreesRight(tree);
+            int treesDown = VisibleTreesDown(tree);
             tree.ScenicScore = treesRight * treesLeft * treesUp * treesDown;
-            if (tree.Col == 2 && tree.Row == 1) {
-                Console.WriteLine($"isVis: {IsVisibleLeft(tree)}, TreeCount: {TreeCountLeft(tree)},"
-                 + $" SmallerTrees: {SmallerTreesLeft(tree)}");
-                Console.WriteLine(
-                    $"treesUp: {treesUp}, treesLeft: {treesLeft}, "
-                    + $"treesRight: {treesRight}, treesDown: {treesDown} = score {tree.ScenicScore}");
-
-            }
         }
     }
 
@@ -122,65 +110,34 @@ class Day08 : ISolver {
         return !forest.Any(x => x.Col == tree.Col && x.Row > tree.Row && x.Height >= tree.Height);
     }
 
-    private int SmallerTreesUp(Tree tree) {
-        var count = forest.Where(x => x.Col == tree.Col && x.Row < tree.Row)
-            .TakeWhile(x => x.Height < tree.Height).Count();
-        if (!forest.Any(x => x.Col == tree.Col && x.Row + 1 == tree.Row && x.Height >= tree.Height)) {
-            return count + 1;
-        } else {
-            return count;
+    private int VisibleTreesUp(Tree tree) {
+        var trees = forest.Where(x => x.Col == tree.Col && x.Row < tree.Row).OrderByDescending(x => x.Row).ToList();
+        return CountVisibleTrees(tree, trees);
+    }
+
+    private int VisibleTreesLeft(Tree tree) {
+        var trees = forest.Where(x => x.Col < tree.Col && x.Row == tree.Row).OrderByDescending(x => x.Col).ToList();
+        return CountVisibleTrees(tree, trees);
+    }
+
+    private int VisibleTreesRight(Tree tree) {
+        var trees = forest.Where(x => x.Col > tree.Col && x.Row == tree.Row).OrderBy(x => x.Col).ToList();
+        return CountVisibleTrees(tree, trees);
+    }
+
+    private int VisibleTreesDown(Tree tree) {
+        var trees = forest.Where(x => x.Col == tree.Col && x.Row > tree.Row).OrderBy(x => x.Row).ToList();
+        return CountVisibleTrees(tree, trees);
+    }
+
+    private static int CountVisibleTrees(Tree tree, List<Tree> trees) {
+        int visibleTrees = 0;
+        foreach (Tree tr in trees) {
+            visibleTrees++;
+            if (tr.Height >= tree.Height) {
+                break;
+            }
         }
-        //     return  ? count : count + 1;
-        // return  ? count : count + 1;
+        return visibleTrees;
     }
-
-    private int SmallerTreesLeft(Tree tree) {
-        var count = forest.Where(x => x.Col < tree.Col && x.Row == tree.Row)
-            .TakeWhile(x => x.Height < tree.Height).Count();
-        // return count == 1 ? count : count + 1;
-        if (!forest.Any(x => x.Col+1 == tree.Col && x.Row == tree.Row && x.Height >= tree.Height)) {
-            return count + 1;
-        } else {
-            return count;
-        }
-    }
-
-    private int SmallerTreesRight(Tree tree) {
-        var count = forest.Where(x => x.Col > tree.Col && x.Row == tree.Row)
-            .TakeWhile(x => x.Height < tree.Height).Count();
-        // return count == 1 ? count : count + 1;
-        if (!forest.Any(x => x.Col == tree.Col+1 && x.Row == tree.Row && x.Height >= tree.Height)) {
-            return count + 1;
-        } else {
-            return count;
-        }
-    }
-
-    private int SmallerTreesDown(Tree tree) {
-        var count = forest.Where(x => x.Col == tree.Col && x.Row > tree.Row)
-            .TakeWhile(x => x.Height < tree.Height).Count();
-        // return count == 1 ? count : count + 1;
-        if (!forest.Any(x => x.Col == tree.Col && x.Row == tree.Row + 1 && x.Height >= tree.Height)) {
-            return count + 1;
-        } else {
-            return count;
-        }
-    }
-
-    private int TreeCountUp(Tree tree) {
-        return forest.Count(x => x.Col == tree.Col && x.Row < tree.Row);
-    }
-
-    private int TreeCountLeft(Tree tree) {
-        return  forest.Count(x => x.Col < tree.Col && x.Row == tree.Row);
-    }
-
-    private int TreeCountRight(Tree tree) {
-        return forest.Count(x => x.Col > tree.Col && x.Row == tree.Row);
-    }
-
-    private int TreeCountDown(Tree tree) {
-        return forest.Count(x => x.Col == tree.Col && x.Row > tree.Row);
-    }
-
 }
