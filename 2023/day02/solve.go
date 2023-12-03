@@ -31,7 +31,6 @@ func part1(inputFile string) {
 		var gameIsPossible bool = true
 
 		setsOfCubes := strings.Split(parts[1], ";")
-		// check if all sets of cubes are do not exceed the max
 		for _, setOfCubes := range setsOfCubes {
 			cubes := strings.Split(setOfCubes, ",")
 			for _, cube := range cubes {
