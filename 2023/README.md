@@ -5,6 +5,18 @@
 
 ## Run the code
 
-```pwsh
-py ./solve.py
+```sh
+python3 ./solve.py
+```
+
+# Go
+
+- Setup: https://go.dev/doc/install
+- Using go 1.21.4 (`go version`)
+
+## Run the code
+
+```sh
+# cd 2023/dayX
+go run .
 ```
