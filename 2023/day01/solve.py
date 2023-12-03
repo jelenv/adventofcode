@@ -1,11 +1,19 @@
 # !/usr/bin/env python3
 
+import time
+
 digit_words = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 def main():
+    start_time = time.time()
     part1('input.txt')
     part2('input.txt')
+    end_time = time.time()
+
+    elapsed_time = end_time - start_time
+    elapsed_time_ms = (end_time - start_time) * 1000
+    print(f"Elapsed time: {round(elapsed_time_ms, 4)}ms")
 
 def part1(input_file: str):
     calibration_sum = 0

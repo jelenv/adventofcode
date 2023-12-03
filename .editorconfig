@@ -4,6 +4,11 @@ root = true
 trim_trailing_whitespace = true
 insert_final_newline = true
 
+[*.go, go.mod]
+indent_size = 4
+indent_style = tab
+line_length = 120
+
 # C# files
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/csharp-formatting-options
 [*.cs]
