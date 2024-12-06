@@ -1,3 +1,4 @@
 [submodule "aoc-inputs"]
 	path = aoc-inputs
 	url = git@github.com:jelenv/aoc-inputs.git
+	branch = main
