@@ -10,9 +10,16 @@ class Day08 : ISolver {
     public void Run() {
         Console.WriteLine("Day08 solver");
 
-        string[] input = File.ReadAllLines("Day08/input.txt");
-        Part1(input);
-        Part2(input);
+        string[] lines;
+        var inputFile = "../aoc-inputs/2022/d08/input.txt";
+        try {
+            lines = File.ReadAllLines(inputFile);
+        } catch (FileNotFoundException) {
+            Console.WriteLine($"Input file not found: {inputFile}");
+            return;
+        }
+        Part1(lines);
+        Part2(lines);
     }
 
     private void Part1(string[] input) {

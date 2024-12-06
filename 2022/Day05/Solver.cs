@@ -10,9 +10,17 @@ class Day05 : ISolver {
     public void Run() {
         Console.WriteLine("Day05 solver");
 
-        string[] lines = File.ReadAllLines("Day05/input.txt");
+        string[] lines;
+        var inputFile = "../aoc-inputs/2022/d05/input.txt";
+        try {
+            lines = File.ReadAllLines(inputFile);
+        } catch (FileNotFoundException) {
+            Console.WriteLine($"Input file not found: {inputFile}");
+            return;
+        }
 
         Part1(lines);
+        ResetVariables();
         Part2(lines);
     }
 
@@ -95,6 +103,7 @@ class Day05 : ISolver {
 
     private void ParseMoveCommand(string line) {
         string[] cmd = line.Split(' ');
+        Console.WriteLine($"Move commands: {cmd.Length}, line: {line}");
         if (cmd.Length != 6) {
             throw new Exception("Invalid move command");
         }
@@ -108,6 +117,16 @@ class Day05 : ISolver {
         for (int i = 0; i < stacks.Count; i++) {
             Console.WriteLine($"{i + 1}: {string.Join(", ", stacks[i])}");
         }
+    }
+
+    private void ResetVariables() {
+        stacks = new List<List<char>> {
+            new List<char>()
+        };
+        stackListComplete = false;
+        quantity = 0;
+        fromIndex = 0;
+        toIndex = 0;
     }
 
 }

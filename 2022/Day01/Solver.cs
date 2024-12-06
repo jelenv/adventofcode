@@ -10,7 +10,14 @@ class Day01 : ISolver {
     public void Run() {
         Console.WriteLine("Day01 solver");
 
-        string[] lines = File.ReadAllLines("Day01/input.txt");
+        string[] lines;
+        var inputFile = "../aoc-inputs/2022/d01/input.txt";
+        try {
+            lines = File.ReadAllLines(inputFile);
+        } catch (FileNotFoundException) {
+            Console.WriteLine($"Input file not found: {inputFile}");
+            return;
+        }
         List<string> lineList = lines.ToList();
         lineList.Add(""); // ensure that we process the last elf
 

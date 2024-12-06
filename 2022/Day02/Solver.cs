@@ -15,7 +15,14 @@ class Day02 : ISolver {
         // score (selected): X = 1, Y = 2, Z = 3
         // score (outcome): 6 for win, 3 for draw, 0 for loss
 
-        string[] lines = File.ReadAllLines("Day02/input.txt");
+        string[] lines;
+        var inputFile = "../aoc-inputs/2022/d02/input.txt";
+        try {
+            lines = File.ReadAllLines(inputFile);
+        } catch (FileNotFoundException) {
+            Console.WriteLine($"Input file not found: {inputFile}");
+            return;
+        }
         List<char> player1 = new();
         List<char> player2 = new();
         foreach (string line in lines) {
