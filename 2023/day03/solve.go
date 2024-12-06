@@ -22,8 +22,9 @@ type Symbol struct {
 }
 
 func main() {
-	part1("input.txt")
-	part2("input.txt")
+	inputFilePath := "../../aoc-inputs/2023/d03/input.txt"
+	part1(inputFilePath)
+	part2(inputFilePath)
 }
 
 func part1(inputFile string) {

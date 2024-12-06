@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	part1("test.txt")
-	// part2("input.txt")
+	inputFilePath := "../../aoc-inputs/2023/d05/input.txt"
+	part1(inputFilePath)
 }
 
 func part1(inputFile string) {
@@ -22,9 +22,3 @@ func part1(inputFile string) {
 
 	fmt.Printf("Lowest location number (part1): %d\n", lowestLocation)
 }
-
-// func part2(inputFile string) {
-// 	// data := utils.ReadFileData(inputFile)
-
-// 	// fmt.Printf("Num of scratch cards (part2): %d\n", numOfScratchCards)
-// }

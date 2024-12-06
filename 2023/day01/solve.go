@@ -16,13 +16,15 @@ var digits = []rune{'1', '2', '3', '4', '5', '6', '7', '8', '9'}
 func main() {
 	startTime := time.Now()
 
-	part1Result, err := part1("input.txt")
+	inputFilePath := "../../aoc-inputs/2023/d01/input.txt"
+
+	part1Result, err := part1(inputFilePath)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("part1 result: %d\n", part1Result)
 
-	part2Result, err := part2("input.txt")
+	part2Result, err := part2(inputFilePath)
 	if err != nil {
 		log.Fatal(err)
 	}
