@@ -1,0 +1,5 @@
+[flake8]
+exclude =
+    .style.yapf
+
+max-line-length = 110

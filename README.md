@@ -1,9 +1,6 @@
-# Advent of Code
+# Advent of Code Solutions
 https://adventofcode.com
 
-## 2023
-- Python
-- Go ?
-
-## 2022
-- C# (.NET 7.0)
+## Languages Used in Solutions
+- 2023: Go, Python
+- 2022: C#
