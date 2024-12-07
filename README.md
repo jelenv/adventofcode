@@ -2,6 +2,7 @@
 https://adventofcode.com
 
 ## Languages Used in Solutions
+- 2024: JavaScript (+ Deno)
 - 2023: Go, Python
 - 2022: C#
 
