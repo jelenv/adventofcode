@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "dev": "deno run --allow-read main.js"
+  },
+  "imports": {},
+  "fmt": {
+    "lineWidth": 120,
+    "singleQuote": true
+  }
+}
