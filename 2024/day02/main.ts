@@ -19,23 +19,25 @@ function part1(reports: string[]) {
   console.log(`Part 1 (number of safe reports):`, numberOfSafeReports);
 }
 
-// TODO: fix part2, skips are not working correctly for all inputs
 function part2(reports: string[]) {
   let numberOfSafeReports = 0;
   for (const report of reports) {
     const numbers = report.split(" ");
-    if (isSafe(numbers, true)) {
+    if (isSafe(numbers)) {
       numberOfSafeReports++;
+    } else {
+      if (isSafeWithSkip(numbers)) {
+        numberOfSafeReports++;
+      }
     }
   }
   console.log(`Part 2 (number of safe reports):`, numberOfSafeReports);
 }
 
-function isSafe(numbers: string[], canSkipOneNum: boolean = false): boolean {
+function isSafe(numbers: string[]): boolean {
   const nums = numbers.map(Number);
 
   let expectedSign = undefined;
-  let skippedNum = undefined;
   for (let i = 0; i < nums.length - 1; i++) {
     const diff = nums[i + 1] - nums[i];
 
@@ -43,30 +45,29 @@ function isSafe(numbers: string[], canSkipOneNum: boolean = false): boolean {
       expectedSign = Math.sign(diff);
     }
     if (Math.sign(diff) !== expectedSign) {
-      if (canSkipOneNum && skippedNum === undefined) {
-        skippedNum = nums[i];
-        const numbersWithoutSkippedNum = numbers
-          .slice(0, i)
-          .concat(numbers.slice(i + 1));
-        return isSafe(numbersWithoutSkippedNum);
-      }
       return false; // array is not ordered
     }
 
     const absDiff = Math.abs(diff);
     if (absDiff === 0 || absDiff > 3) {
-      if (canSkipOneNum && skippedNum === undefined) {
-        skippedNum = nums[i];
-        const numbersWithoutSkippedNum = numbers
-          .slice(0, i)
-          .concat(numbers.slice(i + 1));
-        return isSafe(numbersWithoutSkippedNum);
-      }
       return false; // diff out of allowed range
     }
   }
 
   return true;
+}
+
+function isSafeWithSkip(numbers: string[]): boolean {
+  for (let i = 0; i < numbers.length; i++) {
+    const numbersWithoutSkippedNum = [
+      ...numbers.slice(0, i),
+      ...numbers.slice(i + 1),
+    ];
+    if (isSafe(numbersWithoutSkippedNum)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 main();
