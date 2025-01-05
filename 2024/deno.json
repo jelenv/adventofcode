@@ -1,7 +1,7 @@
 {
   "imports": {},
   "fmt": {
-    "lineWidth": 120,
+    "lineWidth": 110,
     "singleQuote": true
   }
 }
