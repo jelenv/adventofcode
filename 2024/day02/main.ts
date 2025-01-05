@@ -1,8 +1,8 @@
 #!/usr/bin/env -S deno run --allow-read
 
 async function main() {
-  const input = await Deno.readTextFile("../../aoc-inputs/2024/d02/input.txt");
-  const lines = input.trim().split("\n");
+  const input = await Deno.readTextFile('../../aoc-inputs/2024/d02/input.txt');
+  const lines = input.trim().split('\n');
 
   part1(lines);
   part2(lines);
@@ -11,7 +11,7 @@ async function main() {
 function part1(reports: string[]) {
   let numberOfSafeReports = 0;
   for (const report of reports) {
-    const numbers = report.split(" ");
+    const numbers = report.split(' ');
     if (isSafe(numbers)) {
       numberOfSafeReports++;
     }
@@ -22,7 +22,7 @@ function part1(reports: string[]) {
 function part2(reports: string[]) {
   let numberOfSafeReports = 0;
   for (const report of reports) {
-    const numbers = report.split(" ");
+    const numbers = report.split(' ');
     if (isSafe(numbers)) {
       numberOfSafeReports++;
     } else {
